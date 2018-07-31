@@ -4,12 +4,15 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
+#include "Ball.h"
+
 class Game{
 
  protected:
   bool isRunning;
   SDL_Window *window;
   SDL_Renderer *renderer;
+  Ball *ball;
   
  public:
   Game();

@@ -2,6 +2,7 @@
 
 Game::Game(){
   init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800,600,false);
+  ball = new Ball();
 }
 
 int Game::execute(){
