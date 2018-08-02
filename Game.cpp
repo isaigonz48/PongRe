@@ -1,8 +1,12 @@
 #include "Game.h"
 
 Game::Game(){
-  init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800,600,false);
+  init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,SCREEN_HEIGHT,false);
   ball = new Ball();
+  xBorder = (SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10);
+  yBorder = (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10);
+  player1 = new Player(1);
+  player2 = new Player(2);
 }
 
 int Game::execute(){
@@ -55,7 +59,7 @@ void Game::handleEvents(){
 }
 
 void Game::loop(){
-  
+  ball->bounce();
 }
 
 void Game::render(){

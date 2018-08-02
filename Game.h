@@ -5,6 +5,14 @@
 #include <stdio.h>
 
 #include "Ball.h"
+#include "Player.h"
+
+final int SCREEN_WIDTH 800;
+final int SCREEN_HEIGHT 600;
+
+final int XBORDER (SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10);
+final int YBORDER (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10);
+
 
 class Game{
 
@@ -12,7 +20,12 @@ class Game{
   bool isRunning;
   SDL_Window *window;
   SDL_Renderer *renderer;
+  Player *player1;
+  Player *player2;
   Ball *ball;
+  int xBorder;
+  int yBorder;
+
   
  public:
   Game();

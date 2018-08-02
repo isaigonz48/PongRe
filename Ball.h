@@ -1,6 +1,7 @@
 #ifndef BALL_INCLUDED
 #define BALL_INCLUDED
 
+#include "Game.h"
 class Ball{
 
  protected:
@@ -16,7 +17,7 @@ class Ball{
   
   int[] getPos();
   
-  void hit();
+  void bounce();
   void score();
 
 };
