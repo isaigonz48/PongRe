@@ -12,7 +12,8 @@ class Paddle{
   ~Paddle();
 
   void move(int up);
-  void reset();
+  void resetPos();
+  int getPos();
 };
 
 #endif

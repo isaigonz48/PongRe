@@ -20,8 +20,14 @@ void Paddle::move(int up){
   
 }
 
-void Paddle::reset(){
+void Paddle::resetPos(){
 
   yPos = 0;
 
+}
+
+int Paddle::getPos(){
+
+  return yPos;
+  
 }

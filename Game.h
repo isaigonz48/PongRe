@@ -20,8 +20,8 @@ class Game{
   bool isRunning;
   SDL_Window *window;
   SDL_Renderer *renderer;
-  Player *player1;
-  Player *player2;
+  Player **players;
+  //Player *player2;
   Ball *ball;
   int xBorder;
   int yBorder;
@@ -39,6 +39,9 @@ class Game{
   void cleanUp();
   
   bool running(){return isRunning;}
+
+  //Player* getP1();
+  //Player* getP2();
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define BALL_INCLUDED
 
 #include "Game.h"
+
 class Ball{
 
  protected:
@@ -17,9 +18,9 @@ class Ball{
   
   int[] getPos();
   
-  void bounce();
-  void score();
-
+  void bounce(Player **players);
+  int score(Player **players);
+  void paddleBounce(Player *p);
 };
 
 #endif

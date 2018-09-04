@@ -5,8 +5,10 @@ Game::Game(){
   ball = new Ball();
   xBorder = (SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10);
   yBorder = (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10);
-  player1 = new Player(1);
-  player2 = new Player(2);
+  //player1 = new Player(1);
+  //player2 = new Player(2);
+  players[0] = new Player(1);
+  players[1] = new Player(2);
 }
 
 int Game::execute(){
@@ -59,7 +61,7 @@ void Game::handleEvents(){
 }
 
 void Game::loop(){
-  ball->bounce();
+  ball->bounce(players);
 }
 
 void Game::render(){

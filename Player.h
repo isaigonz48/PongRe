@@ -7,6 +7,8 @@ class Player{
 
  protected:
   Paddle *paddle;
+  int height;
+  int width;
   int score;
   
  public:
@@ -16,6 +18,10 @@ class Player{
   int getScore();
 
   void incScore();
+
+  int getPaddlePos();
+  int getHeight();
+  int getWidth();
 };
 
 #endif
