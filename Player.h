@@ -1,7 +1,8 @@
 #ifndef PLAYER_INCLUDED
 #define PLAYER_INCLUDED
 
-#include Paddle.h
+#include "Paddle.h"
+#include "Game.h"
 
 class Player{
 
@@ -19,9 +20,11 @@ class Player{
 
   void incScore();
 
-  int getPaddlePos();
+  Paddle* getPaddle();
   int getHeight();
   int getWidth();
+
+  void move();
 };
 
 #endif

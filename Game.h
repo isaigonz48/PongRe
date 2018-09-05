@@ -7,11 +7,11 @@
 #include "Ball.h"
 #include "Player.h"
 
-final int SCREEN_WIDTH 800;
-final int SCREEN_HEIGHT 600;
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
-final int XBORDER (SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10);
-final int YBORDER (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10);
+#define XBORDER ((SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10))
+#define YBORDER ((SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10))
 
 
 class Game{
@@ -23,6 +23,7 @@ class Game{
   Player **players;
   //Player *player2;
   Ball *ball;
+  int scoreBoard[2];
   int xBorder;
   int yBorder;
 
@@ -40,6 +41,8 @@ class Game{
   
   bool running(){return isRunning;}
 
+  void checkBounce();
+  void checkIfScore();
   //Player* getP1();
   //Player* getP2();
 };

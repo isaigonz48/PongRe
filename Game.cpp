@@ -3,6 +3,8 @@
 Game::Game(){
   init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,SCREEN_HEIGHT,false);
   ball = new Ball();
+  scoreBoard[0] = 0;
+  scoreBoard[1] = 1;
   xBorder = (SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10);
   yBorder = (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10);
   //player1 = new Player(1);
@@ -61,7 +63,15 @@ void Game::handleEvents(){
 }
 
 void Game::loop(){
-  ball->bounce(players);
+  static int tick = 0;
+  if(tick++ == 20){
+    ball->move();
+    players[0]->move();
+    players[1]->move();
+    tick = 0;
+    checkBounce();
+  }
+  
 }
 
 void Game::render(){
@@ -75,4 +85,57 @@ void Game::cleanUp(){
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
   SDL_Quit();
+}
+
+void Game::checkBounce(){
+  
+  ///// Ball hits a paddle
+  ///// Left
+  if(ball->getXVel() < 0){
+    if((*(ball->getPos()) - ball->getHalfWidth()) < (players[0]->getPaddle()->getXPos() + players[0]->getPaddle()->getHalfWidth())){
+      if(((*(ball->getPos()+ 1) + ball->getHalfWidth()) > (players[0]->getPaddle()->getYPos() - players[0]->getPaddle()->getHalfHeight()))
+	 && ((*(ball->getPos()+ 1) - ball->getHalfWidth()) < (players[0]->getPaddle()->getYPos() + players[0]->getPaddle()->getHalfHeight()))){
+	ball->bounce(0);
+      }
+    }
+    ///// Right
+  }else{
+    if((*(ball->getPos()) + ball->getHalfWidth()) > (players[0]->getPaddle()->getXPos() - players[0]->getPaddle()->getHalfWidth())){
+      if(((*(ball->getPos()+ 1) + ball->getHalfWidth()) > (players[0]->getPaddle()->getYPos() - players[0]->getPaddle()->getHalfHeight()))
+	 && ((*(ball->getPos()+ 1) - ball->getHalfWidth()) < (players[0]->getPaddle()->getYPos() + players[0]->getPaddle()->getHalfHeight()))){
+	ball->bounce(0);
+      }
+    }
+  }
+  ///// Ball hits the bottom or top wall
+  ///// Top
+  if(ball->getYVel() > 0){
+    if(*(ball->getPos() + 1) + ball->getHalfWidth() > YBORDER){
+      ball->bounce(1);
+    }
+    ///// Bot
+  }else{
+    if(*(ball->getPos() + 1) + ball->getHalfWidth() > -YBORDER){
+      ball->bounce(1);
+    }
+  }
+  
+}
+
+void Game::checkIfScore(){
+  
+  ///// Ball hits either side of XBORDER
+  /////Score against Left, point to right (player 2)
+  if(ball->getXVel() < 0){
+    if(*(ball->getPos()) - ball->getHalfWidth() < -XBORDER){
+      players[1]->incScore();
+      scoreBoard[1]++;
+    }
+    ///// Score against right, point to left (player 1)
+  }else{
+    if(*(ball->getPos()) + ball->getHalfWidth() > XBORDER){
+      players[0]->incScore();
+      scoreBoard[0]++;
+    }
+  }
 }

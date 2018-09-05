@@ -3,8 +3,8 @@
 Player::Player(int n){
 
   paddle = new Paddle(n);
-  height = YBORDER / 4;
-  width = XBorder / 20;
+  /*height = YBORDER / 4;
+  width = XBORDER / 20;*/
   score = 0;
 
 }
@@ -21,9 +21,9 @@ void Player::incScore(){
 
 }
 
-int Player::getPaddlePos(){
+Paddle* Player::getPaddle(){
 
-  return paddle->getPos();
+  return paddle;
   
 }
 
@@ -36,5 +36,11 @@ int Player::getHeight(){
 int Player::getWidth(){
 
   return width;
+
+}
+
+void Player::move(){
+
+
 
 }

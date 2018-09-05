@@ -8,6 +8,8 @@ Paddle::Paddle(){
   else
     xPos = 20;
 
+  height = (YBORDER / 4) / 2;
+  width = (XBORDER / 20) / 2;
 }
 
 void Paddle::move(int up){
@@ -26,8 +28,14 @@ void Paddle::resetPos(){
 
 }
 
-int Paddle::getPos(){
+int Paddle::getYPos(){
 
   return yPos;
   
+}
+
+int Paddle::getXPos(){
+
+  return xPos;
+
 }
