@@ -2,7 +2,8 @@
 
 Ball::Ball(){
 
-  pos = {0,0};
+  pos[0] = 0;
+  pos[1] = 0;
   int yVel = 2;
   int xVel = 4;
 
@@ -30,7 +31,7 @@ void Ball::move(){
   pos[1] += yVel;
 
 }
-int Ball::bounce(char dir){
+void Ball::bounce(char dir){
 
   /*int absX = pos[0];
   if(absX < 0)
@@ -62,8 +63,6 @@ int Ball::bounce(char dir){
     xVel = -xVel;
   }
   
-  return 1;
-
   // prob done on Game
 
 }

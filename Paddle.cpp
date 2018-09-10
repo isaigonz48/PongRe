@@ -1,6 +1,6 @@
 #include "Paddle.h"
-
-Paddle::Paddle(){
+#include "Game.h"
+Paddle::Paddle(int player){
 
   yPos = 0;
   if(player == 1)

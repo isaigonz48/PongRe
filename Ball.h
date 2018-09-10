@@ -1,8 +1,8 @@
 #ifndef BALL_INCLUDED
 #define BALL_INCLUDED
 
-#include "Game.h"
-#include "Player.h"
+//#include "Game.h"
+//#include "Player.h"
 
 class Ball{
 

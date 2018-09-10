@@ -2,7 +2,7 @@
 #define PLAYER_INCLUDED
 
 #include "Paddle.h"
-#include "Game.h"
+//#include "Game.h"
 
 class Player{
 

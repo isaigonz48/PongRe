@@ -1,6 +1,6 @@
 all: Pong
 
-Pong: Game.cpp main.cpp
+Pong: Game.o main.o Ball.o Player.o Paddle.o
 	g++ -o $@ $^ -lSDL2
 
 run:
