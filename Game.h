@@ -20,8 +20,8 @@ class Game{
   bool isRunning;
   SDL_Window *window;
   SDL_Renderer *renderer;
-  Player **players;
-  //Player *player2;
+  Player *player1;
+  Player *player2;
   Ball *ball;
   int scoreBoard[2];
   int xBorder;

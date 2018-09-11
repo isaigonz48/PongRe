@@ -7,10 +7,10 @@ Game::Game(){
   scoreBoard[1] = 1;
   xBorder = (SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10);
   yBorder = (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10);
-  //player1 = new Player(1);
-  //player2 = new Player(2);
-  players[0] = new Player(1);
-  players[1] = new Player(2);
+  player1 = new Player(1);
+  player2 = new Player(2);
+  //players[0] = new Player(1);
+  //players[1] = new Player(2);
 }
 
 int Game::execute(){
@@ -43,7 +43,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     isRunning = false;
     return;
   }
-  SDL_SetRenderDrawColor(renderer,255,255,255,255);
+  SDL_SetRenderDrawColor(renderer,0,0,0,0);
   
   isRunning = true;
   
@@ -63,14 +63,14 @@ void Game::handleEvents(){
 }
 
 void Game::loop(){
-  static int tick = 0;
+  /*static int tick = 0;
   if(tick++ == 20){
     ball->move();
     players[0]->move();
     players[1]->move();
     tick = 0;
     checkBounce();
-  }
+    }*/
   
 }
 
@@ -92,17 +92,17 @@ void Game::checkBounce(){
   ///// Ball hits a paddle
   ///// Left
   if(ball->getXVel() < 0){
-    if((*(ball->getPos()) - ball->getHalfWidth()) < (players[0]->getPaddle()->getXPos() + players[0]->getPaddle()->getHalfWidth())){
-      if(((*(ball->getPos()+ 1) + ball->getHalfWidth()) > (players[0]->getPaddle()->getYPos() - players[0]->getPaddle()->getHalfHeight()))
-	 && ((*(ball->getPos()+ 1) - ball->getHalfWidth()) < (players[0]->getPaddle()->getYPos() + players[0]->getPaddle()->getHalfHeight()))){
+    if((*(ball->getPos()) - ball->getHalfWidth()) < (player1->getPaddle()->getXPos() + player1->getPaddle()->getHalfWidth())){
+      if(((*(ball->getPos()+ 1) + ball->getHalfWidth()) > (player1->getPaddle()->getYPos() - player1->getPaddle()->getHalfHeight()))
+	 && ((*(ball->getPos()+ 1) - ball->getHalfWidth()) < (player1->getPaddle()->getYPos() + player1->getPaddle()->getHalfHeight()))){
 	ball->bounce(0);
       }
     }
     ///// Right
   }else{
-    if((*(ball->getPos()) + ball->getHalfWidth()) > (players[0]->getPaddle()->getXPos() - players[0]->getPaddle()->getHalfWidth())){
-      if(((*(ball->getPos()+ 1) + ball->getHalfWidth()) > (players[0]->getPaddle()->getYPos() - players[0]->getPaddle()->getHalfHeight()))
-	 && ((*(ball->getPos()+ 1) - ball->getHalfWidth()) < (players[0]->getPaddle()->getYPos() + players[0]->getPaddle()->getHalfHeight()))){
+    if((*(ball->getPos()) + ball->getHalfWidth()) > (player1->getPaddle()->getXPos() - player1->getPaddle()->getHalfWidth())){
+      if(((*(ball->getPos()+ 1) + ball->getHalfWidth()) > (player1->getPaddle()->getYPos() - player1->getPaddle()->getHalfHeight()))
+	 && ((*(ball->getPos()+ 1) - ball->getHalfWidth()) < (player1->getPaddle()->getYPos() + player1->getPaddle()->getHalfHeight()))){
 	ball->bounce(0);
       }
     }
@@ -128,13 +128,13 @@ void Game::checkIfScore(){
   /////Score against Left, point to right (player 2)
   if(ball->getXVel() < 0){
     if(*(ball->getPos()) - ball->getHalfWidth() < -XBORDER){
-      players[1]->incScore();
+      player2->incScore();
       scoreBoard[1]++;
     }
     ///// Score against right, point to left (player 1)
   }else{
     if(*(ball->getPos()) + ball->getHalfWidth() > XBORDER){
-      players[0]->incScore();
+      player1->incScore();
       scoreBoard[0]++;
     }
   }
