@@ -10,6 +10,14 @@ Player::Player(int n){
 
 }
 
+Player::~Player(){
+
+  paddle->~Paddle();
+  //IMG_Quit();
+
+}
+
+
 int Player::getScore(){
 
   return score;
@@ -43,5 +51,11 @@ int Player::getWidth(){
 void Player::move(){
 
 
+
+}
+
+void Player::drawPaddle(SDL_Renderer *r){
+
+  paddle->draw(r);
 
 }

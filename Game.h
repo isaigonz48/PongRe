@@ -2,6 +2,7 @@
 #define GAME_INCLUDED
 
 #include <SDL2/SDL.h>
+//#include <SDL2/SDL_image.h>
 #include <stdio.h>
 
 #include "Ball.h"
@@ -20,6 +21,8 @@ class Game{
   bool isRunning;
   SDL_Window *window;
   SDL_Renderer *renderer;
+  SDL_Surface *image;
+  SDL_Texture *texture;
   Player *player1;
   Player *player2;
   Ball *ball;

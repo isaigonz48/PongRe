@@ -33,6 +33,7 @@ class Ball{
   void reset(char winner);
   //void paddleBounce(Player *p);
 
+  void draw(SDL_Renderer *renderer);
 };
 
 #endif

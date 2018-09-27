@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game(){
-  init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,SCREEN_HEIGHT,false);
+  //init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,SCREEN_HEIGHT,false);
   ball = new Ball();
   scoreBoard[0] = 0;
   scoreBoard[1] = 1;
@@ -11,6 +11,9 @@ Game::Game(){
   player2 = new Player(2);
   //players[0] = new Player(1);
   //players[1] = new Player(2);
+  init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,SCREEN_HEIGHT,false);
+  
+
 }
 
 int Game::execute(){
@@ -26,7 +29,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     isRunning = false;
     return;
   }
-
+  //IMG_Init(IMG_INIT_JPG);
   int flags = 0;
   if(full){
     flags = SDL_WINDOW_FULLSCREEN;
@@ -44,6 +47,9 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     return;
   }
   SDL_SetRenderDrawColor(renderer,0,0,0,0);
+
+  //image = IMG_Load("rect.jpg");
+  //texture= SDL_CreateTextureFromSurface(renderer, image);
   
   isRunning = true;
   
@@ -75,13 +81,27 @@ void Game::loop(){
 }
 
 void Game::render(){
+  SDL_SetRenderDrawColor(renderer,0,0,0,0);
   SDL_RenderClear(renderer);
 
-
+  //ball->draw(renderer);
+  player1->drawPaddle(renderer);
+  player2->drawPaddle(renderer);
+  
+  //SDL_RenderCopy(renderer,texture, NULL, NULL);
+  //SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+  //for(int i = 0; i < 100; i++){
+  //SDL_RenderDrawPoint(renderer,400 + i,300);
+    //SDL_RenderPresent(renderer);
+  //}
   SDL_RenderPresent(renderer);
+  //SDL_RenderFillRect(renderer, &rect);
 }
 
 void Game::cleanUp(){
+  ball->~Ball();
+  player1->~Player();
+  player2->~Player();
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
   SDL_Quit();

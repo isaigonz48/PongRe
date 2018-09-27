@@ -1,6 +1,8 @@
 #ifndef PADDLE_INCLUDED
 #define PADDLE_INCLUDED
 
+#include <SDL2/SDL.h>
+//#include <SDL2/SDL_image.h>
 class Paddle{
 
  protected:
@@ -19,6 +21,8 @@ class Paddle{
   int getXPos();
   int getHalfWidth(){ return width;}
   int getHalfHeight(){ return height;}
+
+  void draw(SDL_Renderer *renderer);
 };
 
 #endif

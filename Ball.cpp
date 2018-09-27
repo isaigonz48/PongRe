@@ -9,6 +9,12 @@ Ball::Ball(){
 
 }
 
+Ball::~Ball(){
+
+  
+
+}
+
 int* Ball::getPos(){
 
   return &pos[0];

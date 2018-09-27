@@ -2,6 +2,7 @@
 #define PLAYER_INCLUDED
 
 #include "Paddle.h"
+#include <SDL2/SDL.h>
 //#include "Game.h"
 
 class Player{
@@ -25,6 +26,8 @@ class Player{
   int getWidth();
 
   void move();
+
+  void drawPaddle(SDL_Renderer *renderer);
 };
 
 #endif
