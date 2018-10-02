@@ -15,7 +15,7 @@ class Paddle{
   Paddle(int player);
   ~Paddle();
 
-  void move(int up);
+  void move(char dir);
   void resetPos();
   int getYPos();
   int getXPos();

@@ -4,6 +4,7 @@
 Player::Player(int n){
 
   paddle = new Paddle(n);
+  nextLoc = 0;
   /*height = YBORDER / 4;
   width = XBORDER / 20;*/
   score = 0;
@@ -50,12 +51,21 @@ int Player::getWidth(){
 
 void Player::move(){
 
-
-
+  paddle->move(nextLoc);
+  nextLoc = 0;
 }
 
 void Player::drawPaddle(SDL_Renderer *r){
 
   paddle->draw(r);
 
+}
+
+void Player::setNextLoc(char dir){
+
+  if(dir == 1){
+    nextLoc = 1;
+  }else{
+    nextLoc = -1;
+  }
 }

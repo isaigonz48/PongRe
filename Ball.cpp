@@ -5,8 +5,8 @@ Ball::Ball(){
 
   pos[0] = SCREEN_WIDTH / 2;
   pos[1] = SCREEN_HEIGHT / 2;
-  yVel = 3;
-  xVel = 3;
+  yVel = -3;
+  xVel = -3;
   halfWidth = (SCREEN_WIDTH / 20) / 2;
 
 }
@@ -83,7 +83,7 @@ void Ball::reset(char winner){
     xVel = -4;
   }else{
     xVel = 4;
-  }
+    }
 }
 /*void Ball::score(Player **players){
   

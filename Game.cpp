@@ -58,15 +58,76 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 
 void Game::handleEvents(){
   SDL_Event event;
-  SDL_PollEvent(&event);
+  //SDL_PollEvent(&event);
+  SDL_PumpEvents();
+
+  const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+  if(keystate[SDL_SCANCODE_UP]){
+      player2->setNextLoc(1);
+    }else if(keystate[SDL_SCANCODE_DOWN]){
+      player2->setNextLoc(-1);
+    }else if(keystate[SDL_SCANCODE_W]){
+      player1->setNextLoc(1);
+    }else if(keystate[SDL_SCANCODE_S]){
+      player1->setNextLoc(-1);
+  }else if(keystate[SDL_SCANCODE_G]){
+    isRunning = false;
+  }
+
+  /*SDL_PollEvent(&event);
+
 
   switch(event.type){
   case SDL_QUIT:
     isRunning = false;
     break;
+  case SDL_KEYDOWN:
+    //SDLKey keyPressed = SDL_GetKeyName(event.key.keysym.sym);
+    if(keystate[SDL_SCANCODE_UP]){
+      player2->setNextLoc(1);
+    }else if(keystate[SDL_SCANCODE_DOWN]){
+      player2->setNextLoc(-1);
+    }else if(keystate[SDL_SCANCODE_W]){
+      player1->setNextLoc(1);
+    }else if(keystate[SDL_SCANCODE_S]){
+      player1->setNextLoc(-1);
+    }
+    break;
+  case SDL_MOUSEBUTTONDOWN:
+    isRunning = false;
+    break;
   default:
     break;
   }
+  
+
+  */
+
+  /*
+  switch(event.type){
+  case SDL_QUIT:
+    isRunning = false;
+    break;
+  case SDL_KEYDOWN:
+    //SDLKey keyPressed = SDL_GetKeyName(event.key.keysym.sym);
+    if(event.key.keysym.sym == SDLK_UP){
+      player2->setNextLoc(1);
+    }else if(event.key.keysym.sym == SDLK_DOWN){
+      player2->setNextLoc(-1);
+    }else if(event.key.keysym.sym == SDLK_w){
+      player1->setNextLoc(1);
+    }else if(event.key.keysym.sym == SDLK_s){
+      player1->setNextLoc(-1);
+    }else{
+      isRunning = false;
+    }
+    break;
+  case SDL_MOUSEBUTTONDOWN:
+    isRunning = false;
+    break;
+  default:
+    break;
+  }*/
 }
 
 void Game::loop(){
@@ -76,6 +137,7 @@ void Game::loop(){
     player1->move();
     player2->move();
     tick = 0;
+    checkIfScore();
     checkBounce();
     }
   
@@ -159,6 +221,7 @@ void Game::checkIfScore(){
   
   ///// Ball hits either side of XBORDER
   /////Score against Left, point to right (player 2)
+  //ball->reset(2);
   if(ball->getXVel() < 0){
     if(*(ball->getPos()) - ball->getHalfWidth() < XBORDER){
       player2->incScore();

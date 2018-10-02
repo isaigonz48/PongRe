@@ -21,13 +21,14 @@ Paddle::~Paddle(){
 }
 
 
-void Paddle::move(int up){
+void Paddle::move(char dir){
 
-  if(up)
-    yPos += 2;
+  if(dir == 0)
+    ;
+  else if(dir == -1)
+    yPos += 5;
   else
-    yPos -=2;
-  
+    yPos -= 5;
   
 }
 
