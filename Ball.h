@@ -3,7 +3,8 @@
 
 //#include "Game.h"
 //#include "Player.h"
-
+//#include "Game.h"
+#include <SDL2/SDL.h>
 class Ball{
 
  protected:

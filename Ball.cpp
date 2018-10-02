@@ -1,11 +1,13 @@
 #include "Ball.h"
+#include "Game.h"
 
 Ball::Ball(){
 
-  pos[0] = 0;
-  pos[1] = 0;
-  int yVel = 2;
-  int xVel = 4;
+  pos[0] = SCREEN_WIDTH / 2;
+  pos[1] = SCREEN_HEIGHT / 2;
+  yVel = 3;
+  xVel = 3;
+  halfWidth = (SCREEN_WIDTH / 20) / 2;
 
 }
 
@@ -74,10 +76,10 @@ void Ball::bounce(char dir){
 }
 
 void Ball::reset(char winner){
-  pos[0] = 0;
-  //pos[1] = 0;
+  pos[0] = SCREEN_WIDTH / 2;
+  pos[1] = SCREEN_HEIGHT / 2;
 
-  if(winner){
+  if(winner == 2){
     xVel = -4;
   }else{
     xVel = 4;
@@ -100,3 +102,19 @@ void Ball::reset(char winner){
   if(pos[1] < padTop && pos[1] > padBot)
     xVel = -xVel;
     }*/
+
+void Ball::draw(SDL_Renderer *r){
+
+  SDL_SetRenderDrawColor(r, 255,255,255,255);
+  for(int i = XBORDER; i < (SCREEN_WIDTH - XBORDER); i++){
+    for(int j = YBORDER; j < (SCREEN_HEIGHT - YBORDER); j++){
+      if(i > pos[0] - halfWidth && i < pos[0] + halfWidth){
+	  if(j > (pos[1] - halfWidth) && j < (pos[1] + halfWidth)){
+	  SDL_RenderDrawPoint(r,i,j);
+	}
+      }
+    }
+
+  }
+
+}

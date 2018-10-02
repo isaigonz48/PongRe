@@ -11,8 +11,8 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-#define XBORDER ((SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10))
-#define YBORDER ((SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10))
+#define XBORDER ((SCREEN_WIDTH / 10))
+#define YBORDER ((SCREEN_HEIGHT / 10))
 
 
 class Game{

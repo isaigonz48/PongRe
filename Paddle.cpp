@@ -2,14 +2,14 @@
 #include "Game.h"
 Paddle::Paddle(int player){
 
-  yPos = 0;
-  if(player == 1)
-    xPos = -20;
-  else
-    xPos = 20;
+  height = (SCREEN_HEIGHT / 4) ;
+  width = (SCREEN_WIDTH / 20) ;
 
-  height = (YBORDER / 4) / 2;
-  width = (XBORDER / 20) / 2;
+  yPos = SCREEN_HEIGHT / 2;
+  if(player == 1)
+    xPos = XBORDER + (width);
+  else
+    xPos = SCREEN_WIDTH - XBORDER - (width);
 
   //IMG_Init(IMG_INIT_JPG)
 }
@@ -52,10 +52,10 @@ int Paddle::getXPos(){
 void Paddle::draw(SDL_Renderer *r){
 
   SDL_SetRenderDrawColor(r, 255,255,255,255);
-  for(int i = 0; i < XBORDER; i++){
-    for(int j = 0; j < YBORDER; j++){
-      if(i > xPos - width/2 && i < xPos + width/2){
-	if(j > yPos - height/2 && j < yPos + height/2){
+  for(int i = XBORDER; i < SCREEN_WIDTH - XBORDER; i++){
+    for(int j = YBORDER; j < SCREEN_HEIGHT - YBORDER; j++){
+      if(i > xPos - (width/2) && i < xPos + (width/2)){
+	if(j > yPos - (height/2) && j < yPos + (height/2)){
 	  SDL_RenderDrawPoint(r,i,j);
 	}
       }
