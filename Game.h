@@ -5,6 +5,7 @@
 //#include <SDL2/SDL_image.h>
 #include <stdio.h>
 
+#include "Border.h"
 #include "Ball.h"
 #include "Player.h"
 
@@ -23,13 +24,17 @@ class Game{
   SDL_Renderer *renderer;
   SDL_Surface *image;
   SDL_Texture *texture;
+  Border *gameBorder;
   Player *player1;
   Player *player2;
+  
   Ball *ball;
-  int scoreBoard[2];
   int xBorder;
   int yBorder;
-
+  int scoreBoard[2];
+  //TTF_Font *TNR = TTF_OpenFont("TimesNewRoman.ttf", 32);
+  //SDL_Surface *scoreMessage;
+  //SDL_Texture* Message;
   
  public:
   Game();

@@ -7,6 +7,7 @@ Game::Game(){
   scoreBoard[1] = 1;
   xBorder = (SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10);
   yBorder = (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10);
+  gameBorder = new Border(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
   ball = new Ball();
   player1 = new Player(1);
   player2 = new Player(2);
@@ -49,6 +50,11 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
   }
   SDL_SetRenderDrawColor(renderer,0,0,0,0);
 
+  //TTF_Font *TNR = TTF_OpenFont("TimesNewRoman.ttf", 32);
+
+  //scoreMessage = (TNR, ("%d    |    %d", score[0],score[1]), 255, 255, 255);
+  //Message = SDL_CreateTextureFromSurface(renderer, scoreMessage);
+ 
   //image = IMG_Load("rect.jpg");
   //texture= SDL_CreateTextureFromSurface(renderer, image);
   
@@ -150,9 +156,11 @@ void Game::render(){
   if(tick++ == 10){
     SDL_SetRenderDrawColor(renderer,0,0,0,0);
     SDL_RenderClear(renderer);
+    gameBorder->draw(renderer);
     ball->draw(renderer);
     player1->drawPaddle(renderer);
     player2->drawPaddle(renderer);
+    //SDL_RenderCopy(renderer, Message);
     tick = 0;
   }
   //SDL_RenderCopy(renderer,texture, NULL, NULL);
