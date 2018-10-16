@@ -19,8 +19,8 @@ class Paddle{
   void resetPos();
   int getYPos();
   int getXPos();
-  int getHalfWidth(){ return width;}
-  int getHalfHeight(){ return height;}
+  int getHalfWidth();
+  int getHalfHeight();
 
   void draw(SDL_Renderer *renderer);
 };

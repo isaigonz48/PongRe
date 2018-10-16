@@ -6,7 +6,7 @@ Ball::Ball(){
   pos[0] = SCREEN_WIDTH / 2;
   pos[1] = SCREEN_HEIGHT / 2;
   yVel = -3;
-  xVel = -3;
+  xVel = -2;
   halfWidth = (SCREEN_WIDTH / 20) / 2;
 
 }
@@ -20,6 +20,15 @@ Ball::~Ball(){
 int* Ball::getPos(){
 
   return &pos[0];
+
+}
+
+int Ball::getXPos(){
+  return pos[0];
+
+}
+int Ball::getYPos(){
+  return pos[1];
 
 }
 
@@ -80,9 +89,9 @@ void Ball::reset(char winner){
   pos[1] = SCREEN_HEIGHT / 2;
 
   if(winner == 2){
-    xVel = -4;
+    xVel = -2;
   }else{
-    xVel = 4;
+    xVel = 2;
     }
 }
 /*void Ball::score(Player **players){

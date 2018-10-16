@@ -25,9 +25,9 @@ void Paddle::move(char dir){
 
   if(dir == 0)
     ;
-  else if(dir == -1)
+  else if(dir == -1 && yPos + (height / 2)< SCREEN_HEIGHT - YBORDER)
     yPos += 5;
-  else
+  else if (dir == 1 && yPos - (height / 2)> YBORDER)
     yPos -= 5;
   
 }
@@ -50,6 +50,17 @@ int Paddle::getXPos(){
 
 }
 
+int Paddle::getHalfWidth(){
+  
+  return width/2;
+
+}
+
+int Paddle::getHalfHeight(){
+
+  return height/2;
+  
+}
 void Paddle::draw(SDL_Renderer *r){
 
   SDL_SetRenderDrawColor(r, 255,255,255,255);
@@ -61,7 +72,5 @@ void Paddle::draw(SDL_Renderer *r){
 	}
       }
     }
-
   }
-
 }

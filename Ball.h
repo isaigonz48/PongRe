@@ -21,6 +21,8 @@ class Ball{
   ~Ball();
   
   int* getPos();
+  int getXPos();
+  int getYPos();
   int getXVel();
   int getYVel();
   int getHalfWidth(){ return halfWidth;}
