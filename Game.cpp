@@ -50,11 +50,16 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
   }
   SDL_SetRenderDrawColor(renderer,0,0,0,0);
 
-  //TTF_Font *TNR = TTF_OpenFont("TimesNewRoman.ttf", 32);
+  TNR = TTF_OpenFont("TimesNewRoman.ttf", 32);
+  //SDL_Color White = {255,255,255};
+  //scoreMessage = TTF_RenderText_Solid(TNR, "0      0", {255, 255, 255});//, White);
+  //  Message = SDL_CreateTextureFromSurface(renderer, scoreMessage);
 
-  //scoreMessage = (TNR, ("%d    |    %d", score[0],score[1]), 255, 255, 255);
-  //Message = SDL_CreateTextureFromSurface(renderer, scoreMessage);
- 
+  //SDL_Rect Message_rect;
+  Message_rect.x = 0;
+  Message_rect.y = 0;
+  Message_rect.w = 100;
+  Message_rect.h = 100;
   //image = IMG_Load("rect.jpg");
   //texture= SDL_CreateTextureFromSurface(renderer, image);
   
@@ -81,61 +86,6 @@ void Game::handleEvents(){
   if(keystate[SDL_SCANCODE_G]){
     isRunning = false;
   }
-
-  /*SDL_PollEvent(&event);
-
-
-  switch(event.type){
-  case SDL_QUIT:
-    isRunning = false;
-    break;
-  case SDL_KEYDOWN:
-    //SDLKey keyPressed = SDL_GetKeyName(event.key.keysym.sym);
-    if(keystate[SDL_SCANCODE_UP]){
-      player2->setNextLoc(1);
-    }else if(keystate[SDL_SCANCODE_DOWN]){
-      player2->setNextLoc(-1);
-    }else if(keystate[SDL_SCANCODE_W]){
-      player1->setNextLoc(1);
-    }else if(keystate[SDL_SCANCODE_S]){
-      player1->setNextLoc(-1);
-    }
-    break;
-  case SDL_MOUSEBUTTONDOWN:
-    isRunning = false;
-    break;
-  default:
-    break;
-  }
-  
-
-  */
-
-  /*
-  switch(event.type){
-  case SDL_QUIT:
-    isRunning = false;
-    break;
-  case SDL_KEYDOWN:
-    //SDLKey keyPressed = SDL_GetKeyName(event.key.keysym.sym);
-    if(event.key.keysym.sym == SDLK_UP){
-      player2->setNextLoc(1);
-    }else if(event.key.keysym.sym == SDLK_DOWN){
-      player2->setNextLoc(-1);
-    }else if(event.key.keysym.sym == SDLK_w){
-      player1->setNextLoc(1);
-    }else if(event.key.keysym.sym == SDLK_s){
-      player1->setNextLoc(-1);
-    }else{
-      isRunning = false;
-    }
-    break;
-  case SDL_MOUSEBUTTONDOWN:
-    isRunning = false;
-    break;
-  default:
-    break;
-  }*/
 }
 
 void Game::loop(){
@@ -159,11 +109,12 @@ void Game::render(){
   if(tick++ >= 10){
     SDL_SetRenderDrawColor(renderer,0,0,0,0);
     SDL_RenderClear(renderer);
+    //    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+    
     gameBorder->draw(renderer);
     ball->draw(renderer);
     player1->drawPaddle(renderer);
     player2->drawPaddle(renderer);
-    //SDL_RenderCopy(renderer, Message);
     tick = 0;
   }
   //SDL_RenderCopy(renderer,texture, NULL, NULL);
@@ -181,7 +132,11 @@ void Game::cleanUp(){
   player1->~Player();
   player2->~Player();
   SDL_DestroyWindow(window);
+  SDL_DestroyTexture(Message);
+  //SDL_DestroyRect(&Message_rect);
   SDL_DestroyRenderer(renderer);
+  
+  //SDL_DestroySurface(scoreMessage);
   SDL_Quit();
 }
 
