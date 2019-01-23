@@ -32,9 +32,9 @@ class Game{
   int xBorder;
   int yBorder;
   int scoreBoard[2];
-  TTF_Font *TNR;// = TTF_OpenFont("TimesNewRoman.ttf", 32);
-  SDL_Surface *scoreMessage;
-  SDL_Texture* Message;
+  //TTF_Font *TNR;// = TTF_OpenFont("TimesNewRoman.ttf", 32);
+  //SDL_Surface *scoreMessage;
+  SDL_Texture *Message;
   SDL_Rect Message_rect;
   
  public:
@@ -52,6 +52,8 @@ class Game{
 
   void checkBounce();
   void checkIfScore();
+
+  void updateScoreText();
   //Player* getP1();
   //Player* getP2();
 };

@@ -1,10 +1,8 @@
 #include "Game.h"
 
 Game::Game(){
-  //init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,SCREEN_HEIGHT,false);
-  //ball = new Ball();
   scoreBoard[0] = 0;
-  scoreBoard[1] = 1;
+  scoreBoard[1] = 0;
   xBorder = (SCREEN_WIDTH / 2) - (SCREEN_WIDTH / 10);
   yBorder = (SCREEN_HEIGHT / 2) - (SCREEN_HEIGHT / 10);
   gameBorder = new Border(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
@@ -14,8 +12,6 @@ Game::Game(){
   //players[0] = new Player(1);
   //players[1] = new Player(2);
   init("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,SCREEN_HEIGHT,false);
-  
-
 }
 
 int Game::execute(){
@@ -31,7 +27,6 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     isRunning = false;
     return;
   }
-  //IMG_Init(IMG_INIT_JPG);
   int flags = 0;
   if(full){
     flags = SDL_WINDOW_FULLSCREEN;
@@ -48,20 +43,32 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     isRunning = false;
     return;
   }
-  SDL_SetRenderDrawColor(renderer,0,0,0,0);
+  SDL_SetRenderDrawColor(renderer,100,0,0,0);
 
-  TNR = TTF_OpenFont("TimesNewRoman.ttf", 32);
-  //SDL_Color White = {255,255,255};
-  //scoreMessage = TTF_RenderText_Solid(TNR, "0      0", {255, 255, 255});//, White);
-  //  Message = SDL_CreateTextureFromSurface(renderer, scoreMessage);
-
-  //SDL_Rect Message_rect;
-  Message_rect.x = 0;
+  if(TTF_Init() < 0){
+    printf("Font not init\n");
+    isRunning = false;
+    return;
+  }
+  
+  TTF_Font *TNR = TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeSans.ttf", 16);
+  
+  if (TNR == NULL){
+    printf("Font not found: %s\n", TTF_GetError());
+    isRunning = false;
+    return;
+  }
+  
+  char scoreMsg[6] = "0 - 0";
+  SDL_Surface *scoreMessage = TTF_RenderText_Solid(TNR, scoreMsg, {255, 255, 255});//, White);
+  Message = SDL_CreateTextureFromSurface(renderer, scoreMessage);
+  
+  Message_rect.x = SCREEN_WIDTH/2 - 95;
   Message_rect.y = 0;
-  Message_rect.w = 100;
-  Message_rect.h = 100;
-  //image = IMG_Load("rect.jpg");
-  //texture= SDL_CreateTextureFromSurface(renderer, image);
+  Message_rect.w = 200;
+  Message_rect.h = 50;
+  SDL_FreeSurface(scoreMessage);
+  SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
   
   isRunning = true;
   
@@ -109,13 +116,16 @@ void Game::render(){
   if(tick++ >= 10){
     SDL_SetRenderDrawColor(renderer,0,0,0,0);
     SDL_RenderClear(renderer);
-    //    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-    
-    gameBorder->draw(renderer);
+    SDL_RenderDrawRect(renderer, &Message_rect);
+    //gameBorder->draw(renderer);
     ball->draw(renderer);
     player1->drawPaddle(renderer);
     player2->drawPaddle(renderer);
     tick = 0;
+    SDL_SetRenderDrawColor(renderer,255,255,255,255);
+
+    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+
   }
   //SDL_RenderCopy(renderer,texture, NULL, NULL);
   //SDL_SetRenderDrawColor(renderer, 255,255,255,255);
@@ -131,10 +141,13 @@ void Game::cleanUp(){
   ball->~Ball();
   player1->~Player();
   player2->~Player();
-  SDL_DestroyWindow(window);
   SDL_DestroyTexture(Message);
-  //SDL_DestroyRect(&Message_rect);
+  TTF_Quit();
   SDL_DestroyRenderer(renderer);
+  
+  SDL_DestroyWindow(window);
+  //SDL_FreeSurface(scoreMessage);
+  //SDL_DestroyRect(&Message_rect);
   
   //SDL_DestroySurface(scoreMessage);
   SDL_Quit();
@@ -202,6 +215,13 @@ void Game::checkIfScore(){
       player2->incScore();
       scoreBoard[1]++;
       ball->reset(2);
+      updateScoreText();
+      if(scoreBoard[1] > 11){
+	scoreBoard[0] = 0;
+	scoreBoard[1] = 0;
+	//TO DO: playerWin(2);
+	//updateScoreText();
+      }
     }
     ///// Score against right, point to left (player 1)
   }else{
@@ -211,6 +231,67 @@ void Game::checkIfScore(){
       player1->incScore();
       scoreBoard[0]++;
       ball->reset(1);
+      updateScoreText();
+      if(scoreBoard[0] > 11){
+	scoreBoard[0] = 0;
+	scoreBoard[1] = 0;
+	//TO DO: playerWin(1);
+	//updateScoreText();
+      }
     }
   }
+}
+
+void Game::updateScoreText(){
+
+  TTF_Font *TNR = TTF_OpenFont("/usr/share/fonts/truetype/freefont/FreeSans.ttf", 16);
+  
+  if (TNR == NULL){
+    printf("Font not found: %s\n", TTF_GetError());
+    isRunning = false;
+    return;
+  }
+  char scoreMsg[8] = "0 - 0";
+  if(scoreBoard[0] > 9 && scoreBoard[1] > 9){
+    scoreMsg[0] = '1';
+    scoreMsg[1] = '0' + (scoreBoard[0]%10);
+    scoreMsg[2] = ' ';
+    scoreMsg[3] = '-';
+    scoreMsg[4] = ' ';
+    scoreMsg[5] = '1';
+    scoreMsg[6] = '0' + (scoreBoard[1]%10);
+    scoreMsg[7] = '\0';
+  }else if(scoreBoard[0] > 9){
+    scoreMsg[0] = '1';
+    scoreMsg[1] = '0' + (scoreBoard[0]%10);
+    scoreMsg[2] = ' ';
+    scoreMsg[3] = '-';
+    scoreMsg[4] = ' ';
+    scoreMsg[5] = '0' + scoreBoard[1];
+    scoreMsg[6] = '\0';
+  }else if(scoreBoard[1] > 9){
+    scoreMsg[0] = '0' + scoreBoard[0];
+    scoreMsg[4] = '1';
+    scoreMsg[5] = '0' + (scoreBoard[1]%10);
+    scoreMsg[6] = '\0';
+  }else{
+    scoreMsg[0] = '0' + scoreBoard[0];
+    scoreMsg[4] = '0' + scoreBoard[1];
+  }
+  
+
+  printf("%d", scoreBoard[0]);
+  SDL_Surface *scoreMessage = TTF_RenderText_Solid(TNR, scoreMsg, {255, 255, 255});//, White);
+  SDL_Texture *newMessage;
+  newMessage = SDL_CreateTextureFromSurface(renderer, scoreMessage);
+  
+  //newMessage_rect.x = SCREEN_WIDTH/2 - 95;
+  //newMessage_rect.y = 0;
+  //newMessage_rect.w = 200;
+  //newMessage_rect.h = 50;
+  SDL_DestroyTexture(Message);
+  Message = newMessage;
+  SDL_FreeSurface(scoreMessage);
+  SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+  
 }
